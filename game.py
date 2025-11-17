@@ -45,8 +45,8 @@ class Game:
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
+        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
+        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
         cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
         cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
         swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
@@ -57,7 +57,7 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = swamp
 
-    # Play the game
+    # Play the game     
     def play(self):
         self.setup()
         self.print_welcome()
@@ -79,6 +79,8 @@ class Game:
         if command_word not in self.commands.keys():
             print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
         # If the command is recognized, execute it
+        elif command_word == " ":
+            self.process_command(input("> "))
         else:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
