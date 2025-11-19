@@ -30,27 +30,50 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        Jardin = Room("Jardin", "un jardin silencieux, presque figé, où chaque statue semble veiller sur les lieux depuis des siècles.")
+        self.rooms.append(Jardin)
+        Vestibule = Room("Vestibule", "un vaste vestibule où chaque bruit résonne trop fort, comme si quelque chose, quelque part caché dans l’ombre de cette immensité, écoutait.")
+        self.rooms.append(Vestibule)
+        Couloir = Room("Couloir", "un couloir silencieux où chaque pas résonne comme un avertissement")
+        self.rooms.append(Couloir)
+        Salle de banquet = Room("Salle de banquet", "une salle de banquet immense, où le moindre craquement du bois résonne comme un murmure inquiétant.")
+        self.rooms.append(Salle de banquet)
+        Bureau = Room("Bureau", "un bureau silencieux, où l’on croit entendre, par instants, le faible grincement d’un fauteuil pourtant immobile.")
+        self.rooms.append(Bureau)
+
+        
+        Suites = Room("Suites", "un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
+        self.rooms.append(Suites)
+        Cachot = Room("Cachot", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Cachot)
+        Tour = Room("Tour", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Tour)
+        Cuisine = Room("Cuisine", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Cuisine)
+        Arrière cour = Room("Arrière Cour", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Arrière Cour)
+        Atelier = Room("Atelier", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Atelier)
+        Chambre au trésor = Room("Chambre au trésor", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Chambre au trésor)
+        Escaliers = Room("Escaliers", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(Escaliers)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        Jardin.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None, "U" :, "D" : }
+        Vestibule.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None, "U" :, "D" : }
+        Couloir.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None, "U" :, "D" : }
+        Salle de banquet.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave, "U" :, "D" : }
+        Bureau.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle, "U" :, "D" : }
+        Suites.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
+        Cachot.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None, "U" :, "D" : }
+        Tour.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None, "U" :, "D" : }
+        Cuisine.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None, "U" :, "D" : }
+        Arrière cour.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave, "U" :, "D" : }
+        Atelier.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle, "U" :, "D" : }
+        Chambre au trésor.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
+        Escaliers.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
 
         # Setup player and starting room
 
@@ -71,16 +94,17 @@ class Game:
     def process_command(self, command_string) -> None:
 
         # Split the command string into a list of words
-        list_of_words = command_string.split(" ")
+        list_of_words = command_string.split()
 
-        command_word = list_of_words[0]
+        if not list_of_words :
+            return
+
+        command_word = list_of_words[0].lower()
 
         # If the command is not recognized, print an error message
         if command_word not in self.commands.keys():
             print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
         # If the command is recognized, execute it
-        elif command_word == " ":
-            self.process_command(input("> "))
         else:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
@@ -92,11 +116,9 @@ class Game:
         #
         print(self.player.current_room.get_long_description())
     
-
 def main():
     # Create a game object and play the game
     Game().play()
-    
 
 if __name__ == "__main__":
     main()

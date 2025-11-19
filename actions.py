@@ -47,6 +47,7 @@ class Actions:
         
         player = game.player
         l = len(list_of_words)
+
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
@@ -54,9 +55,39 @@ class Actions:
             return False
 
         # Get the direction from the list of words.
-        direction = list_of_words[1]
+        raw_direction = list_of_words[1]
+        # Normalisation : tout en majuscules
+        direction = raw_direction.upper()
+
+        # Définition de equivalences
+        equivalences = {
+            "N": "N",
+            "NORD": "N",
+            "E": "E",
+            "EST": "E",
+            "S": "S",
+            "SUD": "S",
+            "O": "O",
+            "OUEST": "O",
+            "U" : "U",
+            "UP" : "U",
+            "D" : "D",
+            "DOWN" : "D",
+        }
+
+        # Vérification que la direction est valide
+        if direction not in equivalences:
+            current_room = player.current_room
+            print(f"\nDirection '{raw_direction}' non reconnue.\n")
+            print(f"Vous êtes dans {current_room.description}\n")
+            print(current_room.get_exit_string())
+            return False
+
+        # Direction normalisée (N, E, S, O, U, D)
+        direction_normale = equivalences[direction]
+
         # Move the player in the direction specified by the parameter.
-        player.move(direction)
+        player.move(direction_normale)
         return True
 
     def quit(game, list_of_words, number_of_parameters):
