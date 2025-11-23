@@ -61,19 +61,32 @@ class Game:
 
         # Create exits for rooms
 
-        Jardin.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None, "U" :, "D" : }
-        Vestibule.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None, "U" :, "D" : }
-        Couloir.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None, "U" :, "D" : }
-        Salle de banquet.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave, "U" :, "D" : }
-        Bureau.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle, "U" :, "D" : }
+        Jardin.exits = {"N" : Vestibule, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
+        Vestibule.exits = {"N" : Escaliers, "E" : Salle de banquet, "S" : Jardin, "O" : Salon, "U" : None, "D" : None }
+        Couloir1.exits = {"N" : Arrière cour, "E" : atelier, "S" : couloir1, "O" : Cabanon, "U" : None, "D" : None }
+        Couloir2.exits = { "N" :,"S" :,"E" :,"O" :,"U" :,"D" :}
+        Salle de banquet.exits = {"N" : None, "E" : None, "S" : None, "O" : Vestibule, "U" : None, "D" : None }
+        Bureau.exits = {"N" : None, "E" : Escalier0, "S" : None, "O" : Couloir1, "U" : None , "D" : None }
         Suites.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
-        Cachot.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None, "U" :, "D" : }
-        Tour.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None, "U" :, "D" : }
-        Cuisine.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None, "U" :, "D" : }
-        Arrière cour.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave, "U" :, "D" : }
-        Atelier.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle, "U" :, "D" : }
-        Chambre au trésor.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
-        Escaliers.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None, "U" :, "D" : }
+        Cachot.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : Escalier hall, "D" : None}
+        Tour1.exits = { "N" : None ,"S" : None ,"E" : None,"O" : None,"U" : None,"D" : Escalier1 }
+        Tour2.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : Escalier2 }
+        Cuisine.exits = {"N" : None, "E" : None, "S" : Salle de banquet, "O" : Escalier hall, "U" : None, "D" : None }
+        Arrière cour.exits = {"N" : None, "E" : Atelier, "S" : Couloir1, "O" : Cabanon, "U" : None, "D" : None }
+        Atelier.exits = {"N" : None, "E" : None, "S" : None, "O" : Arrière cour, "U" : None, "D" : None }
+        Chambre au trésor.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : Escalier0, "D" : None }
+        Escaliers hall.exits = {"N" : Couloir1, "E" : Cuisine, "S" : Vestibule, "O" : Sallon, "U" : Couloir2, "D" : Cachot}
+        Quartiers.exits = { "N" : Sallon,"S" : None,"E" : None,"O" : None,"U" : None,"D" : None }
+        Bibliothèque.exits = { "N" : None,"S" :Sallon ,"E" :Couloir1,"O" : None,"U" : None,"D" :None}
+        Sallon.exits = { "N" : Bibliothèque,"S" : Quartiers,"E" :Escalier hall ,"O" :None ,"U" :None ,"D" : None }
+        Atelier couture.exits = 
+        Salle de peinture.exits = 
+        Escalier1.exits = { "N" : None,"S" : None,"E" : None,"O" : None,"U" : Tour1,"D" : None }
+        Escalier2.exits = { "N" :,"S" :,"E" :,"O" :,"U" : Tour2,"D" : None }
+        Escalier0.exits = { "N" : None,"S" : None ,"E" : None ,"O" : Bureau,"U" : None,"D" : Chambre au trésor}
+        Cabanon.exits = { "N" : None,"S" : None,"E" : Arrière cour,"O" : None,"U" : None,"D" : None}
+
+#{ "N" :,"S" :,"E" :,"O" :,"U" :,"D" :}
 
         # Setup player and starting room
 
