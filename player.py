@@ -21,4 +21,6 @@ class Player():
         print(self.current_room.get_long_description())
         return True
 
-    
+    def history(self, current_room):
+        LH = []
+        if 
