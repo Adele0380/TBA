@@ -34,7 +34,6 @@ class Player():
     def get_history(self):
         if not self.history:
             return ""
-
         lines = ["Vous avez déja visité les pièces suivantes:"]
         for room in self.history:
             lines.append(f"    - {room.description}")
