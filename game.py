@@ -68,7 +68,7 @@ class Game:
         self.rooms.append(atelier)
         chambre_au_trésor = Room("Chambre au trésor", "une chambre où l’or s’empile en silence, mais où chaque pas résonne avec un léger décalage, comme si quelqu’un marchait juste derrière vous.")
         self.rooms.append(chambre_au_trésor)
-        escalier_hall= Room("Escalier hall", "un escalier divisés en deux parties symétriques s’élèvant de part et d’autre du hall, leurs marches de pierre polie s’enfonçant dans une pénombre silencieuse.")
+        escalier_hall= Room("Escalier hall", "un escalier divisés en deux parties symétriques s’élevant de part et d’autre du hall, leurs marches de pierre polie s’enfonçant dans une pénombre silencieuse.")
         self.rooms.append(escalier_hall)
         escalier_est = Room("Escalier_Est", "un escalier élégant, recouvert d’un tapis richement brodé")
         self.rooms.append(escalier_est)

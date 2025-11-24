@@ -2,10 +2,10 @@
 class Player():
 
     # Define the constructor.
-    def __init__(self, name, history):
+    def __init__(self, name):
         self.name = name
         self.current_room = None
-        self.history = history
+        self.history = []
 
     # Define the move method.
     def move(self, direction):
@@ -16,16 +16,26 @@ class Player():
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
             return False
+
+        if self.current_room is not None:
+            self.history.append(self.current_room)
         
         # Set the current room to the next room.
         self.current_room = next_room
         print(self.current_room.get_long_description())
+
+        hist = self.get_history()
+        if hist != "":
+            print()
+            print(hist)
+
         return True
 
-print(f"Vous avez visité : {LH}")
+def get_history(self):
+        if not self.history:
+            return ""
 
-    def get_history(self):
-        self.history = []
-        if self.history is None:
-            self.history.append(self.current_room.name)
-        return self.history 
+        lines = ["Vous avez déja visité les pièces suivantes:"]
+        for room in self.history:
+            lines.append(f"    - {room.description}")
+        return "\n".join(lines)
