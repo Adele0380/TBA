@@ -81,6 +81,7 @@ class Actions:
             print(f"\nDirection '{raw_direction}' non reconnue.\n")
             print(f"Vous êtes dans {current_room.description}\n")
             print(current_room.get_exit_string())
+            print(f"Vous avez visité : {LH}")
             return False
 
         # Direction normalisée (N, E, S, O, U, D)

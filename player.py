@@ -23,4 +23,6 @@ class Player():
 
     def history(self, current_room):
         LH = []
-        if 
+        if next_room != self.current_room:
+            LH.append(self.current_room)
+            self.current_room = next_room
