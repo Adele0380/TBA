@@ -88,6 +88,8 @@ class Game:
         self.rooms.append(L2)
         bibliothèque = Room("Bibiothèque", "une bibliothèque majestueuse, où certains ouvrages ont été laissés entrouverts, comme interrompus au milieu d’une dernière lecture.")
         self.rooms.append(bibliothèque)
+        salon = Room("Salon", "un salon décoré de tableaux anciens, dont les regards peints paraissent suivre discrètement les mouvements des visiteurs.")
+        self.rooms.append(salon)
 
         # Create exits for rooms
         
@@ -106,10 +108,10 @@ class Game:
         arrière_cour.exits = {"N" : None, "E" : atelier, "S" : couloir_bleu, "O" : cabanon, "U" : None, "D" : None }
         atelier.exits = {"N" : None, "E" : None, "S" : None, "O" : arrière_cour, "U" : None, "D" : None }
         chambre_au_trésor.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : escalier_rdc, "D" : None }
-        escalier_hall.exits = {"N" : couloir_bleu, "E" : cuisine, "S" : vestibule, "O" : sallon, "U" : couloir_rouge, "D" : cachot}
-        quartiers.exits = { "N" : sallon,"S" : None,"E" : None,"O" : None,"U" : None,"D" : None }
-        bibliothèque.exits = { "N" : None,"S" :sallon ,"E" :couloir_bleu,"O" : None,"U" : None,"D" :None}
-        sallon.exits = { "N" : bibliothèque,"S" : quartiers,"E" :escalier_hall ,"O" :None ,"U" :None ,"D" : None }
+        escalier_hall.exits = {"N" : couloir_bleu, "E" : cuisine, "S" : vestibule, "O" : salon, "U" : couloir_rouge, "D" : cachot}
+        quartiers.exits = { "N" : salon,"S" : None,"E" : None,"O" : None,"U" : None,"D" : None }
+        bibliothèque.exits = { "N" : None,"S" :salon ,"E" :couloir_bleu,"O" : None,"U" : None,"D" :None}
+        salon.exits = { "N" : bibliothèque,"S" : quartiers,"E" :escalier_hall ,"O" :None ,"U" :None ,"D" : None }
         atelier_couture.exits = { "N" : None,"S" : None,"E" :couloir_vert ,"O" :None ,"U" :None ,"D" : None }
         salle_de_peinture.exits = { "N" : None,"S" : None,"E" :couloir_vert ,"O" :None ,"U" :None ,"D" : None }
         escalier_est.exits = { "N" : None,"S" : None,"E" : None,"O" : couloir_rouge,"U" : tour_est,"D" : None }
