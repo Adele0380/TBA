@@ -125,7 +125,7 @@ class Game:
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = jardin
 
     # Play the game     
     def play(self):
