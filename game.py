@@ -82,10 +82,10 @@ class Game:
         self.rooms.append(atelier_couture)
         atelier_peinture = Room("Atelier de peinture", "un vieil escalier, dont l'obscurité en cache la sortie")
         self.rooms.append(atelier_peinture)
-        L1 = Room(["Chambre 2", "Chambre 3", "Chambre 4"], "couloir face à trois chambres : Victor, Madère, Gwendoline")
-        self.rooms.append(L1)
-        L2 = Room(["Chambre 5", "Salle de peinture", "Atelier de couture"], "un couloir où se trouvent trois salles : chambre François, salle de peinture et l'atelier de couture.")
-        self.rooms.append(L2)
+        couloir_vert_est = Room("Couloir vert Est", "le couloir vert Est face à trois chambres : Victor, Madère, Gwendoline")
+        self.rooms.append(couloir_vert_est)
+        couloir_vert_ouest = Room("Couloir vert Ouest", "le couloir vert Ouest où se trouvent trois salles : chambre François, salle de peinture et l'atelier de couture.")
+        self.rooms.append(couloir_vert_ouest)
         bibliothèque = Room("Bibiothèque", "une bibliothèque majestueuse, où certains ouvrages ont été laissés entrouverts, comme interrompus au milieu d’une dernière lecture.")
         self.rooms.append(bibliothèque)
         salon = Room("Salon", "un salon décoré de tableaux anciens, dont les regards peints paraissent suivre discrètement les mouvements des visiteurs.")
@@ -95,12 +95,11 @@ class Game:
 
         # Create exits for rooms
         
-        L2=["Chambre 5", "Salle de peinture", "Atelier de couture"]
         jardin.exits = {"N" : vestibule, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
         vestibule.exits = {"N" : escalier_hall, "E" : salle_de_banquet, "S" : jardin, "O" : None, "U" : None, "D" : None }
         couloir_bleu.exits = {"N" : arrière_cour, "E" : bureau, "S" : escalier_hall, "O" : bibliothèque, "U" : None, "D" : None }
         couloir_rouge.exits = { "N" : couloir_vert,"S" : escalier_hall,"E" :escalier_est,"O" :escalier_ouest,"U" : None,"D" : None}
-        couloir_vert.exits = { "N" : chambre_1,"S" : couloir_rouge,"E" : L1,"O" : L2,"U" : None,"D" : None}
+        couloir_vert.exits = { "N" : chambre_1,"S" : couloir_rouge,"E" : couloir_vert_est,"O" : couloir_vert_ouest,"U" : None,"D" : None}
         salle_de_banquet.exits = {"N" : None, "E" : None, "S" : None, "O" : vestibule, "U" : None, "D" : None }
         bureau.exits = {"N" : None, "E" : escalier_rdc, "S" : None, "O" : couloir_bleu, "U" : None , "D" : None }
         cachot.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : escalier_hall, "D" : None}
@@ -120,8 +119,8 @@ class Game:
         escalier_ouest.exits = { "N" : None,"S" : None,"E" : couloir_rouge,"O" : None,"U" : tour_ouest,"D" : None }
         escalier_rdc.exits = { "N" : None,"S" : None ,"E" : None ,"O" : bureau,"U" : None,"D" : chambre_au_trésor}
         cabanon.exits = { "N" : None,"S" : None,"E" : arrière_cour,"O" : None,"U" : None,"D" : None}
-        L1.exits = { "N" : chambre_3,"S" : couloir_vert,"E" : chambre_4,"O" : chambre_2,"U" : None,"D" : None}
-        L2.exits = { "N" : atelier_peinture,"S" : couloir_vert,"E" : atelier_couture,"O" : chambre_5,"U" : None,"D" : None}
+        couloir_vert_est.exits = { "N" : chambre_3,"S" : couloir_vert,"E" : chambre_4,"O" : chambre_2,"U" : None,"D" : None}
+        couloir_vert_ouest.exits = { "N" : atelier_peinture,"S" : couloir_vert,"E" : atelier_couture,"O" : chambre_5,"U" : None,"D" : None}
 
         # Setup player and starting room
 
