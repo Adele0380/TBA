@@ -84,6 +84,8 @@ class Game:
         self.rooms.append(L1)
         L2 = Room(["Chambre 5", "Salle de peinture", "Atelier de couture"], "un couloir où se trouvent trois salles : chambre François, salle de peinture et l'atelier de couture.")
         self.rooms.append(L2)
+        bibliothèque = Room("Bibiothèque", "une bibliothèque majestueuse, où certains ouvrages ont été laissés entrouverts, comme interrompus au milieu d’une dernière lecture.")
+        self.rooms.append(bibliothèque)
 
         # Create exits for rooms
         
