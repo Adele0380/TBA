@@ -61,7 +61,7 @@ class Game:
         cuisine = Room("Cuisine", "une cuisine spacieuse aux grandes tables de bois massif, et aux belles casseroles en cuivre, où la lumière des lanternes se reflète doucement sur la pierre froide du sol.")
         self.rooms.append(cuisine)
         arrière_cour = Room("Arrière Cour", "une arrière cour pavée et entourée de grands arbres et d'une végétation luxuriante où un calme parfait règne.")
-        self.rooms.appendarrière_Cour)
+        self.rooms.append(arrière_cour)
         atelier = Room("Atelier", "un atelier discret, encombré d’établis en bois massif et d’outils soigneusement rangés, où une fine couche de poussière atteste du temps écoulé.")
         self.rooms.append(atelier)
         chambre_au_trésor = Room("Chambre au trésor", "une chambre où l’or s’empile en silence, mais où chaque pas résonne avec un léger décalage, comme si quelqu’un marchait juste derrière vous.")
