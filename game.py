@@ -90,6 +90,8 @@ class Game:
         self.rooms.append(bibliothèque)
         salon = Room("Salon", "un salon décoré de tableaux anciens, dont les regards peints paraissent suivre discrètement les mouvements des visiteurs.")
         self.rooms.append(salon)
+        quartiers = Room("Quartiers", "des quartiers silencieux, alignés le long d’un couloir étroit, où chaque porte close semble dissimuler une présence endormie.")
+        self.rooms.append(quartiers)
 
         # Create exits for rooms
         
