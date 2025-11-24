@@ -38,6 +38,8 @@ class Game:
         self.rooms.append(couloir_bleu)
         couloir_rouge = Room("Couloir rouge", "un long couloir rouge sombre, qui semble n'avoir aucune fin.")
         self.rooms.append(couloir_rouge)
+        couloir_vert = Room("Couloir vert", "un couloir d'un vert profond, rendant l'atmosphère intimidante")
+        self.rooms.append(couloir_vert)
         salle_de_banquet = Room("Salle de banquet", "une salle de banquet immense, où le moindre craquement du bois résonne comme un murmure inquiétant.")
         self.rooms.append(salle_de_banquet)
         bureau = Room("Bureau", "un bureau silencieux, où l’on croit entendre, par instants, le faible grincement d’un fauteuil pourtant immobile.")
