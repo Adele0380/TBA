@@ -31,7 +31,7 @@ class Player():
 
         return True
 
-def get_history(self):
+    def get_history(self):
         if not self.history:
             return ""
 
