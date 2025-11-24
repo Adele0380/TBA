@@ -89,7 +89,7 @@ class Game:
         
         L2=["Chambre 5", "Salle de peinture", "Atelier de couture"]
         jardin.exits = {"N" : vestibule, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
-        vestibule.exits = {"N" : escaliers_hall, "E" : salle_de_banquet, "S" : jardin, "O" : None, "U" : None, "D" : None }
+        vestibule.exits = {"N" : escalier_hall, "E" : salle_de_banquet, "S" : jardin, "O" : None, "U" : None, "D" : None }
         couloir_bleu.exits = {"N" : arrière_cour, "E" : bureau, "S" : escalier_hall, "O" : bibliothèque, "U" : None, "D" : None }
         couloir_rouge.exits = { "N" : couloir_vert,"S" : escalier_hall,"E" :escalier_est,"O" :escalier_ouest,"U" : None,"D" : None}
         couloir_vert.exits = { "N" : chambre_1,"S" : couloir_rouge,"E" : L1,"O" : L2,"U" : None,"D" : None}
