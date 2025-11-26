@@ -168,3 +168,36 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+
+    def history(game, list_of_words, number_of_parameters):
+        """Affiche l'historique des salles visitées."""
+        l = len(list_of_words)
+        # Vérification du nombre de paramètres
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        hist = game.player.get_history()
+
+        if hist == "":
+            print("\nAucun historique pour l’instant.\n")
+        else:
+            print("\n" + hist + "\n")
+
+        return True
+ 
+    def back(game, list_of_words, number_of_parameters):
+        """Revenir à la pièce précédemment visitée."""
+        l = len(list_of_words)
+        
+        # Vérification du nombre de paramètres
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        player = game.player
+
+        # On délègue le travail à la méthode back() du joueur
+        return player.back()

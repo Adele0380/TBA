@@ -26,8 +26,8 @@ class Player():
 
         hist = self.get_history()
         if hist != "":
-            print()
             print(hist)
+            print()
 
         return True
 
@@ -38,3 +38,25 @@ class Player():
         for room in self.history:
             lines.append(f"    - {room.description}")
         return "\n".join(lines)
+    
+    def back(self):
+    # Si l'historique est vide, on ne peut pas revenir en arrière
+        if len(self.history) == 0:
+            print("\nVous ne pouvez pas revenir en arrière : aucun déplacement précédent.\n")
+            return False
+
+        # On récupère la dernière pièce visitée (structure de pile : LIFO)
+        previous_room = self.history.pop()
+        self.current_room = previous_room
+
+        # On affiche la description complète de la pièce
+        print(self.current_room.get_long_description())
+
+        # On réaffiche l'historique mis à jour
+        hist = self.get_history()
+        if hist != "":
+            print(hist)
+            print()
+
+        return True
+
