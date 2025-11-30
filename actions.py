@@ -201,3 +201,5 @@ class Actions:
 
         # On délègue le travail à la méthode back() du joueur
         return player.back()
+
+    def look():
