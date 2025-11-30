@@ -39,6 +39,14 @@ class Player():
         for room in self.history:
             lines.append(f"    - {room.description}")
         return "\n".join(lines)
+
+    def get_inventory(self):
+        if not self.inventory:
+            return "Votre inventaire est vide."
+        lines = ["Vous transportez les objets suivants:"]
+        for item in self.inventory.values():
+            lines.append(f"    - {item}")
+        return "\n".join(lines)
     
     def back(self):
     # Si l'historique est vide, on ne peut pas revenir en arrière
