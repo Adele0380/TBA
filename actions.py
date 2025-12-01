@@ -186,7 +186,7 @@ class Actions:
             print("\n" + hist + "\n")
 
         return True
- 
+
     def back(game, list_of_words, number_of_parameters):
         """Revenir à la pièce précédemment visitée."""
         l = len(list_of_words)
@@ -197,9 +197,26 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
 
+    def look(game, list_of_words, number_of_parameters):
+        """Affiche la description de la pièce et la liste des items présents dans la pièce."""
+        l = len(list_of_words)
+        # Vérification du nombre de paramètres
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        room = game.player.current_room
+
+        print(f"\nVous êtes dans {room.description}\n")
+        print(room.get_inventory())
+        print()
+
+        return True
+
         player = game.player
 
         # On délègue le travail à la méthode back() du joueur
         return player.back()
 
-    def look():
+   

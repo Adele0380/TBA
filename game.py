@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -31,7 +32,11 @@ class Game:
         self.commands["history"] = history
         back = Command("back", " : revenir en arrière", Actions.back, 0)
         self.commands["back"] = back
-        
+        look = Command("look", " : décrire la pièce et les objets présents", Actions.look, 0)
+        self.commands["look"] = look
+        take = Command("take", " : remplir l'inventaire du joueur", Actions.take, 0)
+        self.commands["take"] = take
+
         # Setup rooms
 
         jardin = Room("Jardin", "un jardin silencieux, presque figé, où chaque statue semble veiller sur les lieux depuis des siècles.")
@@ -97,6 +102,20 @@ class Game:
         quartiers = Room("Quartiers", "des quartiers silencieux, alignés le long d’un couloir étroit, où chaque porte close semble dissimuler une présence endormie.")
         self.rooms.append(quartiers)
 
+        clefs = Item("clefs", "un bouclier léger et résistant", 1)
+        manuscrit = Item("manuscrit", "un casque en métal (1 kg)", 1)
+        coffret_souvenirs = Item("coffret souvenirs", "un bouclier léger et résistant", 1)
+        dague = Item("dague", "un casque en métal (1 kg)", 1)
+        bougies = Item("bougies", "un bouclier léger et résistant", 1)
+        allumettes = Item("allumettes", "un casque en métal (1 kg)", 1)
+        pistolet = Item("pistolet", "un bouclier léger et résistant", 1)
+        miroir = Item("miroir", "un casque en métal (1 kg)", 1)
+        portrait_familial = Item("portrait familial", "un bouclier léger et résistant", 1)
+        horloge = Item("horloge", "un casque en métal (1 kg)", 1)
+        boite_à_musique = Item("boite à musique", "un bouclier léger et résistant", 1)
+        carte_postale = Item("carte postale", "un casque en métal (1 kg)", 1)
+        fiole_de_parfum = Item("fiole de parfum", "un bouclier léger et résistant", 1)
+
         # Create exits for rooms
         
         jardin.exits = {"N" : vestibule, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
@@ -125,6 +144,20 @@ class Game:
         cabanon.exits = { "N" : None,"S" : None,"E" : arrière_cour,"O" : None,"U" : None,"D" : None}
         couloir_vert_est.exits = { "N" : chambre_3,"S" : couloir_vert,"E" : chambre_4,"O" : chambre_2,"U" : None,"D" : None}
         couloir_vert_ouest.exits = { "N" : atelier_peinture,"S" : couloir_vert,"E" : atelier_couture,"O" : chambre_5,"U" : None,"D" : None}
+
+        bureau.inventory["clefs"] = clefs
+        bibliothèque.inventory["manuscrit"] = manuscrit
+        salle_de_banquet.inventory["coffret souvenirs"] = coffret_souvenirs
+        tour_ouest.inventory["dague"] = dague
+        couloir_vert_ouest.inventory["allumettes"] = allumettes
+        couloir_vert_ouest.inventory["bougies"] = bougies
+        chambre_3.inventory["pistolet"] = pistolet
+        couloir_rouge.inventory["miroir"] = miroir
+        salon.inventory["portrait familial"] = portrait_familial
+        salle_de_banquet.inventory["horloge"] = horloge
+        atelier_couture.inventory["boite à musique"] = boite_à_musique
+        chambre_1.inventory["fiole de parfum"] = fiole_de_parfum
+        quartiers.inventory["carte postale"] = carte_postale
 
         # Setup player and starting room
 
@@ -166,6 +199,8 @@ class Game:
         print("Entrez 'help' si vous avez besoin d'aide.")
         #
         print(self.player.current_room.get_long_description())
+        print(self.player.current_room.get_inventory())
+
     
 def main():
     # Create a game object and play the game

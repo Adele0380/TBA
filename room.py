@@ -7,7 +7,7 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
-        self.inventory = ( dict = {} )
+        self.inventory = {}
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -29,7 +29,7 @@ class Room:
 
     def get_inventory(self):
         if not self.inventory:
-            return "Il n'y a aucun objet dans cette pièce."
+            return "Il n'y a rien ici.\n"
         lines = ["La pièce contient :"]
         for item in self.inventory.values():
             lines.append(f"    - {item}")
