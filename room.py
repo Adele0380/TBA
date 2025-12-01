@@ -30,7 +30,7 @@ class Room:
     def get_inventory(self):
         if not self.inventory:
             return "Il n'y a aucun objet dans cette pièce."
-        lines = ["Objets dans la pièce:"]
+        lines = ["La pièce contient :"]
         for item in self.inventory.values():
             lines.append(f"    - {item}")
         return "\n".join(lines)

@@ -43,7 +43,7 @@ class Player():
     def get_inventory(self):
         if not self.inventory:
             return "Votre inventaire est vide."
-        lines = ["Vous transportez les objets suivants:"]
+        lines = ["Vous disposez des objets suivants :"]
         for item in self.inventory.values():
             lines.append(f"    - {item}")
         return "\n".join(lines)
