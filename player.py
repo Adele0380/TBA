@@ -69,3 +69,42 @@ class Player():
 
         return True
 
+    def take(self, item_name: str):
+        """Prend un objet dans la pièce et le met dans l'inventaire du joueur."""
+        room = self.current_room
+
+        if item_name not in room.inventory:
+            print(f"\nIl n'y a pas '{item_name}' dans cette pièce.\n")
+            return False
+
+        # On récupère l'item et on le retire de la pièce
+        item = room.inventory.pop(item_name)
+
+        # On le met dans l'inventaire du joueur
+        self.inventory[item_name] = item
+
+        print(f"\nVous avez pris l'objet {item}.\n")
+        return True
+
+    def drop(self, item_name: str):
+        """Prend un objet dans l'inventaire et le met dans la pièce."""
+        room = self.current_room
+
+        if item_name not in self.inventory:
+            print(f"\nIl n'y a pas '{item_name}' dans votre inventaire.\n")
+            return False
+
+        # On récupère l'item et on le retire de la pièce
+        item = self.inventory.pop(item_name)
+        
+        room = self.current_room
+
+        # On le met dans l'inventaire du joueur
+        room.inventory[item_name] = item
+
+        print(f"\nVous avez déposer {item}.\n")
+        return True
+    
+    
+
+

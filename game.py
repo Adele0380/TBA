@@ -34,8 +34,12 @@ class Game:
         self.commands["back"] = back
         look = Command("look", " : décrire la pièce et les objets présents", Actions.look, 0)
         self.commands["look"] = look
-        take = Command("take", " : remplir l'inventaire du joueur", Actions.take, 0)
+        take = Command("take", " <item> : prendre un objet dans la pièce", Actions.take, 1)
         self.commands["take"] = take
+        drop = Command("drop", " <item> : deposer un objet dans la pièce", Actions.drop, 1)
+        self.commands["drop"] = drop
+        check = Command("check", " : décrire les objets présents dans l'inventaire du joueur", Actions.check, 0)
+        self.commands["check"] = check
 
         # Setup rooms
 
@@ -104,17 +108,17 @@ class Game:
 
         clefs = Item("clefs", "un bouclier léger et résistant", 1)
         manuscrit = Item("manuscrit", "un casque en métal (1 kg)", 1)
-        coffret_souvenirs = Item("coffret souvenirs", "un bouclier léger et résistant", 1)
+        coffret_souvenirs = Item("coffret_souvenirs", "un bouclier léger et résistant", 1)
         dague = Item("dague", "un casque en métal (1 kg)", 1)
         bougies = Item("bougies", "un bouclier léger et résistant", 1)
         allumettes = Item("allumettes", "un casque en métal (1 kg)", 1)
         pistolet = Item("pistolet", "un bouclier léger et résistant", 1)
         miroir = Item("miroir", "un casque en métal (1 kg)", 1)
-        portrait_familial = Item("portrait familial", "un bouclier léger et résistant", 1)
+        portrait_familial = Item("portrait_familial", "un bouclier léger et résistant", 1)
         horloge = Item("horloge", "un casque en métal (1 kg)", 1)
-        boite_à_musique = Item("boite à musique", "un bouclier léger et résistant", 1)
-        carte_postale = Item("carte postale", "un casque en métal (1 kg)", 1)
-        fiole_de_parfum = Item("fiole de parfum", "un bouclier léger et résistant", 1)
+        boite_à_musique = Item("boite_à_musique", "un bouclier léger et résistant", 1)
+        carte_postale = Item("carte_postale", "un casque en métal (1 kg)", 1)
+        fiole_de_parfum = Item("fiole_de_parfum", "un bouclier léger et résistant", 1)
 
         # Create exits for rooms
         
@@ -147,17 +151,17 @@ class Game:
 
         bureau.inventory["clefs"] = clefs
         bibliothèque.inventory["manuscrit"] = manuscrit
-        salle_de_banquet.inventory["coffret souvenirs"] = coffret_souvenirs
+        salle_de_banquet.inventory["coffret_souvenirs"] = coffret_souvenirs
         tour_ouest.inventory["dague"] = dague
         couloir_vert_ouest.inventory["allumettes"] = allumettes
         couloir_vert_ouest.inventory["bougies"] = bougies
         chambre_3.inventory["pistolet"] = pistolet
         couloir_rouge.inventory["miroir"] = miroir
-        salon.inventory["portrait familial"] = portrait_familial
+        salon.inventory["portrait_familial"] = portrait_familial
         salle_de_banquet.inventory["horloge"] = horloge
-        atelier_couture.inventory["boite à musique"] = boite_à_musique
-        chambre_1.inventory["fiole de parfum"] = fiole_de_parfum
-        quartiers.inventory["carte postale"] = carte_postale
+        atelier_couture.inventory["boite_à_musique"] = boite_à_musique
+        chambre_1.inventory["fiole_de_parfum"] = fiole_de_parfum
+        quartiers.inventory["carte_postale"] = carte_postale
 
         # Setup player and starting room
 
