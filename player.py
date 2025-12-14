@@ -97,6 +97,7 @@ class Player():
             return False
         
         # On le met dans l'inventaire du joueur
+        item = self.inventory[item_name]
         room.inventory[item_name] = self.inventory.pop(item_name)
 
         print(f"\nVous avez déposé {item}.\n")

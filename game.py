@@ -119,6 +119,7 @@ class Game:
         boite_à_musique = Item("boite_à_musique", "Une boîte à musique délicate, jouant une mélodie ancienne légèrement désaccordée", 0.4)
         carte_postale = Item("carte_postale", "Une carte postale jaunie représentant le château avant sa rénovation, avec un message énigmatique au dos", 0.1)
         fiole_de_parfum = Item("fiole_de_parfum", "Une petite fiole en verre fin contenant un parfum ancien, légèrement oxydé", 0.12)
+        secateur = Item("secateur", "un vieux secateur rouillé et aux lames émoussées laissé dans un jardin non entretenu depuis longtemps", 0.3)
 
         # Create exits for rooms
         
@@ -162,6 +163,7 @@ class Game:
         atelier_couture.inventory["boite_à_musique"] = boite_à_musique
         chambre_1.inventory["fiole_de_parfum"] = fiole_de_parfum
         quartiers.inventory["carte_postale"] = carte_postale
+        jardin.inventory["secateur"] = secateur
 
         # Setup player and starting room
 
