@@ -7,6 +7,7 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory = {}
+        self.max_weight = 15
 
     # Define the move method.
     def move(self, direction):
@@ -77,34 +78,31 @@ class Player():
             print(f"\nIl n'y a pas '{item_name}' dans cette pièce.\n")
             return False
 
-        # On récupère l'item et on le retire de la pièce
-        item = room.inventory.pop(item_name)
+        item = room.inventory[item_name]
+        if self.total_weight() + item.weight > self.max_weight:
+            print(f"\nIl est impossible de prendre {item_name} : trop lourd "
+                  f"({self.total_weight()} + {item.weight} > {self.max_weight}).\n")
+            return False
 
-        # On le met dans l'inventaire du joueur
-        self.inventory[item_name] = item
-
+        self.inventory[item_name] = room.inventory.pop(item_name)
         print(f"\nVous avez pris l'objet {item}.\n")
         return True
 
     def drop(self, item_name: str):
         """Prend un objet dans l'inventaire et le met dans la pièce."""
+        
         room = self.current_room
-
         if item_name not in self.inventory:
             print(f"\nIl n'y a pas '{item_name}' dans votre inventaire.\n")
             return False
-
-        # On récupère l'item et on le retire de la pièce
-        item = self.inventory.pop(item_name)
         
-        room = self.current_room
-
         # On le met dans l'inventaire du joueur
-        room.inventory[item_name] = item
+        room.inventory[item_name] = self.inventory.pop(item_name)
 
-        print(f"\nVous avez déposer {item}.\n")
+        print(f"\nVous avez déposé {item}.\n")
         return True
-    
-    
+
+    def total_weight(self):
+        return sum(item.weight for item in self.inventory.values())
 
 
