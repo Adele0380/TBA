@@ -196,29 +196,24 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
+        return game.player.back()
 
     def look(game, list_of_words, number_of_parameters):
-        """Affiche la description de la pièce et la liste des items présents dans la pièce."""
-        l = len(list_of_words)
-        # Vérification du nombre de paramètres
-        if l != number_of_parameters + 1:
-            command_word = list_of_words[0]
-            print(MSG0.format(command_word=command_word))
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
             return False
 
-        room = game.player.current_room
         player = game.player
+        room = player.current_room
 
-        has_torch = "torch" in player.inventory
-        if room.dark and not has_torch:
+        if room.dark and "torche" not in player.inventory:
             print("\nIl fait trop sombre pour voir quoi que ce soit...\n")
             return True
 
-        print(f"\nVous êtes dans {room.description}\n")
+        print(room.get_long_description())
         print(room.get_inventory())
-        print()
-
         return True
+
 
     def take(game, list_of_words, number_of_parameters):
         """Ajouter des items dans l'inventaire du joueur et le retirer de la pièce."""
@@ -279,20 +274,72 @@ class Actions:
 
     def use(game, list_of_words, number_of_parameters):
         if len(list_of_words) != number_of_parameters + 1:
-            print(MSG0.format(command_word=list_of_words[0]))
+            print(MSG1.format(command_word=list_of_words[0]))
             return False
 
         player = game.player
+        item_name = list_of_words[1].lower()
 
-        if "beamer" not in player.inventory:
-            print("\nVous n'avez pas de beamer.\n")
+        if item_name not in player.inventory:
+            print(f"\nVous n'avez pas {item_name}.\n")
             return False
 
-        if player.beamer_room is None:
-            print("\nLe beamer n'est pas chargé.\n")
+    # --- BEAMER ---
+        if item_name == "beamer":
+            if player.beamer_room is None:
+                print("\nLe beamer n'est pas chargé.\n")
+                return False
+
+            player.current_room = player.beamer_room
+            print("\nTéléportation réussie !\n")
+            print(player.current_room.get_long_description())
+            return True
+
+    # --- POTION ---
+        if item_name == "potion":
+            if player.health == player.max_health:
+                print("\nVous êtes déjà en pleine santé.\n")
+                return False
+
+            player.health = min(player.max_health, player.health + 5)
+            player.inventory.pop("potion")
+
+            print(f"\nVous buvez la potion. Santé : {player.health}/{player.max_health}\n")
+            return True
+
+        print("\nVous ne pouvez pas utiliser cet objet.\n")
+        return False
+
+    def unlock(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG1.format(command_word=list_of_words[0]))
             return False
 
-        player.current_room = player.beamer_room
-        print("\nTéléportation réussie !\n")
-        print(player.current_room.get_long_description())
+        player = game.player
+        room = player.current_room
+        direction = list_of_words[1].upper()
+
+        door = room.exits.get(direction)
+        if door is None:
+            print("\nIl n'y a pas de porte dans cette direction.\n")
+            return False
+
+        if not door.locked:
+            print("\nLa porte est déjà ouverte.\n")
+            return True
+
+    # Vérifier la clé requise
+        needed = door.key_name  # ex: "clef"
+        if needed is None:
+            print("\nCette porte ne peut pas être déverrouillée.\n")
+            return False
+
+        if needed not in player.inventory:
+            print(f"\nIl vous faut '{needed}' pour ouvrir cette porte.\n")
+            return False
+
+        door.locked = False
+        print("\nVous déverrouillez la porte.\n")
         return True
+
+    

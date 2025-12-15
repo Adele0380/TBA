@@ -41,10 +41,10 @@ class Game:
         self.commands["drop"] = drop
         check = Command("check", " : décrire les objets présents dans l'inventaire du joueur", Actions.check, 0)
         self.commands["check"] = check
-        use = Command("use", " <item> : utiliser un objet", Actions.use, 1)
-        self.commands["use"] = use
+        self.commands["use"] = Command("use"," <item> : utiliser un objet (beamer, potion, ...)",Actions.use,1)
         unlock = Command("unlock", " <direction> : déverrouiller une porte", Actions.unlock, 1)
         self.commands["unlock"] = unlock
+        self.commands["charge"] = Command("charge", " : charger le beamer", Actions.charge, 0)
 
         # Setup rooms
 
@@ -129,32 +129,32 @@ class Game:
 
         # Create exits for rooms
         
-        jardin.exits = {"N" : Door(vestibule), "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
-        vestibule.exits = {"N" : escalier_hall, "E" : Door(salle_de_banquet, locked=True, key_name="key"), "S" : jardin, "O" : None, "U" : None, "D" : None }
-        couloir_bleu.exits = {"N" : arrière_cour, "E" : bureau, "S" : escalier_hall, "O" : bibliothèque, "U" : None, "D" : None }
-        couloir_rouge.exits = { "N" : couloir_vert,"S" : escalier_hall,"E" :escalier_est,"O" :escalier_ouest,"U" : None,"D" : None}
-        couloir_vert.exits = { "N" : chambre_1,"S" : couloir_rouge,"E" : couloir_vert_est,"O" : couloir_vert_ouest,"U" : None,"D" : None}
-        salle_de_banquet.exits = {"N" : None, "E" : None, "S" : None, "O" : vestibule, "U" : None, "D" : None }
-        bureau.exits = {"N" : None, "E" : escalier_rdc, "S" : None, "O" : couloir_bleu, "U" : None , "D" : None }
-        cachot.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : escalier_hall, "D" : None}
-        tour_est.exits = { "N" : None ,"S" : None ,"E" : None,"O" : None,"U" : None,"D" : escalier_est }
-        tour_ouest.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : escalier_ouest }
-        cuisine.exits = {"N" : None, "E" : None, "S" : salle_de_banquet, "O" : escalier_hall, "U" : None, "D" : None }
-        arrière_cour.exits = {"N" : None, "E" : atelier, "S" : couloir_bleu, "O" : cabanon, "U" : None, "D" : None }
-        atelier.exits = {"N" : None, "E" : None, "S" : None, "O" : arrière_cour, "U" : None, "D" : None }
-        chambre_au_trésor.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : escalier_rdc, "D" : None }
-        escalier_hall.exits = {"N" : couloir_bleu, "E" : cuisine, "S" : vestibule, "O" : salon, "U" : couloir_rouge, "D" : cachot}
-        quartiers.exits = { "N" : salon,"S" : None,"E" : None,"O" : None,"U" : None,"D" : None }
-        bibliothèque.exits = { "N" : None,"S" :salon ,"E" :couloir_bleu,"O" : None,"U" : None,"D" :None}
-        salon.exits = { "N" : bibliothèque,"S" : quartiers,"E" :escalier_hall ,"O" :None ,"U" :None ,"D" : None }
-        atelier_couture.exits = { "N" : None,"S" : None,"E" :couloir_vert ,"O" :None ,"U" :None ,"D" : None }
-        atelier_peinture.exits = { "N" : None,"S" : None,"E" :couloir_vert ,"O" :None ,"U" :None ,"D" : None }
-        escalier_est.exits = { "N" : None,"S" : None,"E" : None,"O" : couloir_rouge,"U" : tour_est,"D" : None }
-        escalier_ouest.exits = { "N" : None,"S" : None,"E" : couloir_rouge,"O" : None,"U" : tour_ouest,"D" : None }
-        escalier_rdc.exits = { "N" : None,"S" : None ,"E" : None ,"O" : bureau,"U" : None,"D" : chambre_au_trésor}
-        cabanon.exits = { "N" : None,"S" : None,"E" : arrière_cour,"O" : None,"U" : None,"D" : None}
-        couloir_vert_est.exits = { "N" : chambre_3,"S" : couloir_vert,"E" : chambre_4,"O" : chambre_2,"U" : None,"D" : None}
-        couloir_vert_ouest.exits = { "N" : atelier_peinture,"S" : couloir_vert,"E" : atelier_couture,"O" : chambre_5,"U" : None,"D" : None}
+        jardin.exits = {"N" : Door(vestibule, locked=False, key_name="clef"), "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
+        vestibule.exits = {"N" : Door(escalier_hall, locked=False, key_name="clef"), "E" : Door(salle_de_banquet, locked=False, key_name="clef"), "S" : Door(jardin, locked=False, key_name="clef"), "O" : None, "U" : None, "D" : None }
+        couloir_bleu.exits = {"N" : Door(arrière_cour, locked=True, key_name="clef"), "E" : Door(bureau, locked=False, key_name="clef"), "S" : Door(escalier_hall, locked=False, key_name="clef"), "O" : Door(bibliothèque, locked=True, key_name="clef"), "U" : None, "D" : None }
+        couloir_rouge.exits = { "N" : Door(couloir_vert, locked=False, key_name="clef"),"S" : Door(escalier_hall, locked=False, key_name="clef"),"E" : Door(escalier_est, locked=False, key_name="clef"),"O" : Door(escalier_ouest, locked=True, key_name="clef"),"U" : None,"D" : None}
+        couloir_vert.exits = { "N" : Door(chambre_1, locked=True, key_name="clef"),"S" : Door(couloir_rouge, locked=False, key_name="clef"),"E" : Door(couloir_vert_est, locked=False, key_name="clef"),"O" : Door(couloir_vert_ouest, locked=False, key_name="clef"),"U" : None,"D" : None}
+        salle_de_banquet.exits = {"N" : None, "E" : None, "S" : None, "O" : Door(vestibule, locked=False, key_name="clef"), "U" : None, "D" : None }
+        bureau.exits = {"N" : None, "E" : Door(escalier_rdc, locked=False, key_name="clef"), "S" : None, "O" : Door(couloir_bleu, locked=False, key_name="clef"), "U" : None , "D" : None }
+        cachot.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : Door(escalier_hall, locked=True, key_name="clef"), "D" : None}
+        tour_est.exits = { "N" : None ,"S" : None ,"E" : None,"O" : None,"U" : None,"D" : Door(escalier_est, locked=False, key_name="clef") }
+        tour_ouest.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : Door(escalier_ouest, locked=False, key_name="clef") }
+        cuisine.exits = {"N" : None, "E" : None, "S" : Door(salle_de_banquet, locked=False, key_name="clef"), "O" : Door(escalier_hall, locked=False, key_name="clef"), "U" : None, "D" : None }
+        arrière_cour.exits = {"N" : None, "E" : Door(atelier, locked=True, key_name="clef"), "S" : Door(couloir_bleu, locked=True, key_name="clef"), "O" : Door(cabanon, locked=False, key_name="clef"), "U" : None, "D" : None }
+        atelier.exits = {"N" : None, "E" : None, "S" : None, "O" : Door(arrière_cour, locked=False, key_name="clef"), "U" : None, "D" : None }
+        chambre_au_trésor.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : Door(escalier_rdc, locked=True, key_name="clef"), "D" : None }
+        escalier_hall.exits = {"N" : Door(couloir_bleu, locked=False, key_name="clef"), "E" : Door(cuisine, locked=False, key_name="clef"), "S" : Door(vestibule, locked=False, key_name="clef"), "O" : Door(salon, locked=False, key_name="clef"), "U" : Door(couloir_rouge, locked=False, key_name="clef"), "D" : Door(cachot, locked=True, key_name="clef")}
+        quartiers.exits = { "N" : Door(salon, locked=True, key_name="clef"),"S" : None,"E" : None,"O" : None,"U" : None,"D" : None }
+        bibliothèque.exits = { "N" : None,"S" : Door(salon, locked=False, key_name="clef"),"E" : Door(couloir_bleu, locked=False, key_name="clef"),"O" : None,"U" : None,"D" :None}
+        salon.exits = { "N" : Door(bibliothèque, locked=False, key_name="clef"),"S" : Door(quartiers, locked=True, key_name="clef"),"E" : Door(escalier_hall, locked=False, key_name="clef"),"O" :None ,"U" :None ,"D" : None }
+        atelier_couture.exits = { "N" : None,"S" : None,"E" : Door(couloir_vert, locked=False, key_name="clef"),"O" :None ,"U" :None ,"D" : None }
+        atelier_peinture.exits = { "N" : None,"S" : None,"E" : Door(couloir_vert, locked=False, key_name="clef"),"O" :None ,"U" :None ,"D" : None }
+        escalier_est.exits = { "N" : None,"S" : None,"E" : None,"O" : Door(couloir_rouge, locked=False, key_name="clef"),"U" : tour_est,"D" : None }
+        escalier_ouest.exits = { "N" : None,"S" : None,"E" : Door(couloir_rouge, locked=False, key_name="clef"),"O" : None,"U" : Door(tour_ouest, locked=False, key_name="clef"),"D" : None }
+        escalier_rdc.exits = { "N" : None,"S" : None ,"E" : None ,"O" : Door(bureau, locked=True, key_name="clef"),"U" : None,"D" : Door(chambre_au_trésor, locked=True, key_name="clef")}
+        cabanon.exits = { "N" : None,"S" : None,"E" : Door(arrière_cour, locked=False, key_name="clef"),"O" : None,"U" : None,"D" : None}
+        couloir_vert_est.exits = { "N" : Door(chambre_3, locked=True, key_name="clef"),"S" : Door(couloir_vert, locked=False, key_name="clef"),"E" : Door(chambre_4, locked=True, key_name="clef"),"O" : Door(chambre_2, locked=True, key_name="clef"),"U" : None,"D" : None}
+        couloir_vert_ouest.exits = { "N" : Door(atelier_peinture, locked=False, key_name="clef"),"S" : Door(couloir_vert, locked=False, key_name="clef"),"E" : Door(atelier_couture, locked=False, key_name="clef"),"O" : Door(chambre_5, locked=True, key_name="clef"),"U" : None,"D" : None}
 
         bureau.inventory["clefs"] = clefs
         bibliothèque.inventory["manuscrit"] = manuscrit
@@ -171,9 +171,9 @@ class Game:
         quartiers.inventory["carte_postale"] = carte_postale
         jardin.inventory["secateur"] = secateur
         jardin.inventory["beamer"] = beamer
-        
-        jardin.inventory["torche"] = Item("torch", "une torche en bois", 1)
-        bureau.inventory["clef"] = Item("clef", "une petite clé en fer", 0.1)
+
+        jardin.inventory["torche"] = Item("torche", "une torche en bois", 1)
+        jardin.inventory["clef"] = Item("clef", "une petite clé en fer", 0.1)
         cuisine.inventory["potion"] = Item("potion", "une potion de soin", 1)
 
         cachot.dark = True

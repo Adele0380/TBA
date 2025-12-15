@@ -24,22 +24,19 @@ class Player():
             print("\nLa porte est verrouillée.\n")
             return False
 
-    # historique
-        if self.current_room is not None:
-            self.history.append(self.current_room)
+    # On mémorise la pièce quittée
+        self.history.append(self.current_room)
 
+    # On se déplace
         self.current_room = door.destination
         print(self.current_room.get_long_description())
-
-        hist = self.get_history()
-        if hist:
-            print(hist, "\n")
+        print(self.current_room.get_inventory())  # optionnel : affiche les objets
         return True
 
     def get_history(self):
         if not self.history:
             return ""
-        lines = ["\nVous avez déja visité les pièces suivantes:"]
+        lines = ["Vous avez déja visité les pièces suivantes:"]
         for room in self.history:
             lines.append(f"    - {room.description}")
         return "\n".join(lines)
