@@ -7,6 +7,7 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+from door import Door
 
 class Game:
 
@@ -40,6 +41,10 @@ class Game:
         self.commands["drop"] = drop
         check = Command("check", " : décrire les objets présents dans l'inventaire du joueur", Actions.check, 0)
         self.commands["check"] = check
+        use = Command("use", " <item> : utiliser un objet", Actions.use, 1)
+        self.commands["use"] = use
+        unlock = Command("unlock", " <direction> : déverrouiller une porte", Actions.unlock, 1)
+        self.commands["unlock"] = unlock
 
         # Setup rooms
 
@@ -120,11 +125,12 @@ class Game:
         carte_postale = Item("carte_postale", "Une carte postale jaunie représentant le château avant sa rénovation, avec un message énigmatique au dos", 0.1)
         fiole_de_parfum = Item("fiole_de_parfum", "Une petite fiole en verre fin contenant un parfum ancien, légèrement oxydé", 0.12)
         secateur = Item("secateur", "un vieux secateur rouillé et aux lames émoussées laissé dans un jardin non entretenu depuis longtemps", 0.3)
+        beamer = Item("beamer", "un objet magique permettant de se téléporter", 1)
 
         # Create exits for rooms
         
-        jardin.exits = {"N" : vestibule, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
-        vestibule.exits = {"N" : escalier_hall, "E" : salle_de_banquet, "S" : jardin, "O" : None, "U" : None, "D" : None }
+        jardin.exits = {"N" : Door(vestibule), "E" : None, "S" : None, "O" : None, "U" : None, "D" : None }
+        vestibule.exits = {"N" : escalier_hall, "E" : Door(salle_de_banquet, locked=True, key_name="key"), "S" : jardin, "O" : None, "U" : None, "D" : None }
         couloir_bleu.exits = {"N" : arrière_cour, "E" : bureau, "S" : escalier_hall, "O" : bibliothèque, "U" : None, "D" : None }
         couloir_rouge.exits = { "N" : couloir_vert,"S" : escalier_hall,"E" :escalier_est,"O" :escalier_ouest,"U" : None,"D" : None}
         couloir_vert.exits = { "N" : chambre_1,"S" : couloir_rouge,"E" : couloir_vert_est,"O" : couloir_vert_ouest,"U" : None,"D" : None}
@@ -164,11 +170,22 @@ class Game:
         chambre_1.inventory["fiole_de_parfum"] = fiole_de_parfum
         quartiers.inventory["carte_postale"] = carte_postale
         jardin.inventory["secateur"] = secateur
+        jardin.inventory["beamer"] = beamer
+        
+        jardin.inventory["torche"] = Item("torch", "une torche en bois", 1)
+        bureau.inventory["clef"] = Item("clef", "une petite clé en fer", 0.1)
+        cuisine.inventory["potion"] = Item("potion", "une potion de soin", 1)
+
+        cachot.dark = True
+        tour_ouest.dark = True
+        tour_est.dark = True
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = jardin
+        self.commands["charge"] = Command("charge", " : charger le beamer dans la pièce actuelle", Actions.charge, 0)
+        self.commands["use"] = Command("use", " : utiliser le beamer", Actions.use, 0)
 
     # Play the game     
     def play(self):

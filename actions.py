@@ -207,6 +207,12 @@ class Actions:
             return False
 
         room = game.player.current_room
+        player = game.player
+
+        has_torch = "torch" in player.inventory
+        if room.dark and not has_torch:
+            print("\nIl fait trop sombre pour voir quoi que ce soit...\n")
+            return True
 
         print(f"\nVous êtes dans {room.description}\n")
         print(room.get_inventory())
@@ -255,5 +261,38 @@ class Actions:
 
         # On délègue le travail à la méthode back() du joueur
         return player.back()
+    
+    def charge(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
+            return False
 
-   
+        player = game.player
+
+        if "beamer" not in player.inventory:
+            print("\nVous n'avez pas de beamer.\n")
+            return False
+
+        player.beamer_room = player.current_room
+        print("\nLe beamer est chargé.\n")
+        return True
+
+    def use(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
+            return False
+
+        player = game.player
+
+        if "beamer" not in player.inventory:
+            print("\nVous n'avez pas de beamer.\n")
+            return False
+
+        if player.beamer_room is None:
+            print("\nLe beamer n'est pas chargé.\n")
+            return False
+
+        player.current_room = player.beamer_room
+        print("\nTéléportation réussie !\n")
+        print(player.current_room.get_long_description())
+        return True

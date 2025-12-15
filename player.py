@@ -8,29 +8,32 @@ class Player():
         self.history = []
         self.inventory = {}
         self.max_weight = 15
+        self.beamer_room = None
+        self.health = 10
+        self.max_health = 10
 
     # Define the move method.
     def move(self, direction):
-        # Get the next room from the exits dictionary of the current room.
-        next_room = self.current_room.exits[direction]
-        # If the next room is None, print an error message and return False.
-        if next_room is None:
+        door = self.current_room.exits.get(direction)
+
+        if door is None:
             print("\nAucune porte dans cette direction !\n")
             return False
 
+        if door.locked:
+            print("\nLa porte est verrouillée.\n")
+            return False
+
+    # historique
         if self.current_room is not None:
             self.history.append(self.current_room)
-        
-        # Set the current room to the next room.
-        self.current_room = next_room
+
+        self.current_room = door.destination
         print(self.current_room.get_long_description())
-        print(self.current_room.get_inventory())
 
         hist = self.get_history()
-        if hist != "":
-            print(hist)
-            print()
-
+        if hist:
+            print(hist, "\n")
         return True
 
     def get_history(self):

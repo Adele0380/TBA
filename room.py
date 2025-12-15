@@ -8,6 +8,7 @@ class Room:
         self.description = description
         self.exits = {}
         self.inventory = {}
+        self.dark = False 
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -21,11 +22,10 @@ class Room:
     # Return a string describing the room's exits.
     def get_exit_string(self):
         exit_string = "Sorties: " 
-        for exit in self.exits.keys():
-            if self.exits.get(exit) is not None:
-                exit_string += exit + ", "
-        exit_string = exit_string.strip(", ")
-        return exit_string
+        for direction, door in self.exits.items():
+            if door is not None:
+                exit_string += direction + ", "
+        return exit_string.strip(", ")
 
     def get_inventory(self):
         if not self.inventory:
