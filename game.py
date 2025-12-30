@@ -8,6 +8,7 @@ from command import Command
 from actions import Actions
 from item import Item
 from door import Door
+from character import character
 
 class Game:
 
@@ -180,12 +181,20 @@ class Game:
         tour_ouest.dark = True
         tour_est.dark = True
 
+        #setup characters
+        self.character = character("Gardien","Un vieil homme au regard perçant, vêtu d'une cape sombre et tenant une lanterne vacillante.")
+        self.character.current_room = vestibule
+        self.character.msgs = ["Bienvenue dans ce château mystérieux.","Faites attention aux pièces sombres, elles cachent bien des secrets.","N'oubliez pas de chercher des objets utiles pour votre aventure."]
+        vestibule.characters["gardien"] = self.character
+
+
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = jardin
         self.commands["charge"] = Command("charge", " : charger le beamer dans la pièce actuelle", Actions.charge, 0)
         self.commands["use"] = Command("use", " : utiliser le beamer", Actions.use, 0)
+
 
     # Play the game     
     def play(self):
@@ -223,6 +232,7 @@ class Game:
         #
         print(self.player.current_room.get_long_description())
         print(self.player.current_room.get_inventory())
+        print(self.player.current_room.get_characters())
 
     
 def main():

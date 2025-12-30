@@ -10,6 +10,7 @@ class Room:
         self.inventory = {}
         self.dark = False 
         self.locked = False
+        self.characters = {}
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -34,6 +35,14 @@ class Room:
         lines = ["\nLa pièce contient :"]
         for item in self.inventory.values():
             lines.append(f"    - {item}")
+        return "\n".join(lines)+"\n"
+
+    def get_characters(self):
+        if not self.characters:
+            return "\nIl n'y a personne ici.\n"
+        lines = ["\nVous apercevez :"]
+        for char in self.characters.values():
+            lines.append(f"    - {char}")
         return "\n".join(lines)+"\n"
 
     # Return a long description of this room including exits.

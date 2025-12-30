@@ -80,6 +80,7 @@ class Actions:
             current_room = player.current_room
             print(f"\nDirection '{raw_direction}' non reconnue.\n")
             print(f"Vous êtes dans {current_room.description}\n")
+            print(f"Vous appercevez '{current_room.cha}")
             print(current_room.get_exit_string())
             return False
 
@@ -212,6 +213,7 @@ class Actions:
 
         print(room.get_long_description())
         print(room.get_inventory())
+        print(room.get_characters())
         return True
 
 

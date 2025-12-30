@@ -31,6 +31,7 @@ class Player():
         self.current_room = door.destination
         print(self.current_room.get_long_description())
         print(self.current_room.get_inventory())  # optionnel : affiche les objets
+        print(self.current_room.get_characters())  # affiche les personnages
         return True
 
     def get_history(self):
@@ -61,6 +62,8 @@ class Player():
 
         # On affiche la description complète de la pièce
         print(self.current_room.get_long_description())
+        print(self.current_room.get_inventory())
+        print(self.current_room.get_characters())
 
         # On réaffiche l'historique mis à jour
         hist = self.get_history()
