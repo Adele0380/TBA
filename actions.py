@@ -344,4 +344,29 @@ class Actions:
         print("\nVous déverrouillez la porte.\n")
         return True
 
-    
+    def talk(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG1.format(command_word=list_of_words[0]))
+            return False
+
+        player = game.player
+        room = player.current_room
+        char_name = list_of_words[1].lower()
+
+        character = None
+        for char in room.characters.values():
+            if char.name.lower() == char_name:
+                character = char
+                break
+
+        if character is None:
+            if room.characters:
+                names = [char.name for char in room.characters.values()]
+                print(f"\nIl n'y a pas de personnage nommé '{char_name}' ici. Personnages présents : {', '.join(names)}\n")
+            else:
+                print(f"\nIl n'y a pas de personnage nommé '{char_name}' ici. Aucun personnage dans cette pièce.\n")
+            return False
+
+        msg = character.get_msg()
+        print(f"\n{character.name} dit : \"{msg}\"\n")
+        return True

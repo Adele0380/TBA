@@ -8,7 +8,8 @@ from command import Command
 from actions import Actions
 from item import Item
 from door import Door
-from character import character
+from character import Character
+import random
 
 class Game:
 
@@ -18,6 +19,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.characters = []
     
     # Setup the game
     def setup(self):
@@ -46,6 +48,7 @@ class Game:
         unlock = Command("unlock", " <direction> : déverrouiller une porte", Actions.unlock, 1)
         self.commands["unlock"] = unlock
         self.commands["charge"] = Command("charge", " : charger le beamer", Actions.charge, 0)
+        self.commands["talk"] = Command("talk", " <character> : parler à un personnage", Actions.talk, 1)
 
         # Setup rooms
 
@@ -182,10 +185,11 @@ class Game:
         tour_est.dark = True
 
         #setup characters
-        self.character = character("Gardien","Un vieil homme au regard perçant, vêtu d'une cape sombre et tenant une lanterne vacillante.")
+        self.character = Character("charles","Un vieil homme au regard perçant, vêtu d'une cape sombre et tenant une lanterne vacillante.")
         self.character.current_room = vestibule
-        self.character.msgs = ["Bienvenue dans ce château mystérieux.","Faites attention aux pièces sombres, elles cachent bien des secrets.","N'oubliez pas de chercher des objets utiles pour votre aventure."]
-        vestibule.characters["gardien"] = self.character
+        self.character.msgs = ["Bienvenue dans ce château mystérieux, faites attention aux pièces sombres, elles cachent bien des secrets."]
+        vestibule.characters["charles"] = self.character
+        self.characters.append(self.character)
 
 
         # Setup player and starting room
@@ -204,6 +208,10 @@ class Game:
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
+            # Move characters with a chance
+            for char in self.characters:
+                if random.random() < 0.05:  # 5% chance per turn
+                    char.move()
         return None
 
     # Process the command entered by the player
