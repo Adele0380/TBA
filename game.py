@@ -13,6 +13,8 @@ import random
 
 class Game:
 
+    DEBUG = True
+
     # Constructor
     def __init__(self):
         self.finished = False
@@ -187,7 +189,7 @@ class Game:
         #setup characters
         self.character = Character("charles","Un vieil homme au regard perçant, vêtu d'une cape sombre et tenant une lanterne vacillante.")
         self.character.current_room = vestibule
-        self.character.msgs = ["Bienvenue dans ce château mystérieux, faites attention aux pièces sombres, elles cachent bien des secrets."]
+        self.character.msgs = ["Bienvenue dans ce château mystérieux, faites attention aux pièces sombres, elles cachent bien des secrets.","bonjour","salut"]
         vestibule.characters["charles"] = self.character
         self.characters.append(self.character)
 
@@ -209,9 +211,8 @@ class Game:
             # Get the command from the player
             self.process_command(input("> "))
             # Move characters with a chance
-            for char in self.characters:
-                if random.random() < 0.05:  # 5% chance per turn
-                    char.move()
+
+
         return None
 
     # Process the command entered by the player
@@ -230,8 +231,12 @@ class Game:
             print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
         # If the command is recognized, execute it
         else:
+            for char in self.characters:
+                if random.random() < 0.5:  # 50% chance per turn
+                    char.move()
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
+            
 
     # Print the welcome message
     def print_welcome(self):

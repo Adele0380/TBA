@@ -1,4 +1,7 @@
 # Define the Player class.
+
+DEBUG = True
+
 class Player():
 
     # Define the constructor.
@@ -15,13 +18,18 @@ class Player():
     # Define the move method.
     def move(self, direction):
         door = self.current_room.exits.get(direction)
+        if DEBUG:
+            print(f"DEBUG: tentative de déplacement vers {direction}")
+
 
         if door is None:
-            print("\nAucune porte dans cette direction !\n")
+            if DEBUG:
+                print("DEBUG: pas de porte")
             return False
 
         if door.locked:
-            print("\nLa porte est verrouillée.\n")
+            if DEBUG:
+                print("DEBUG: porte verrouillée")
             return False
 
     # On mémorise la pièce quittée
@@ -29,6 +37,9 @@ class Player():
 
     # On se déplace
         self.current_room = door.destination
+        if DEBUG:
+            print(f"DEBUG: déplacement réussi vers {self.current_room.name}")
+
         print(self.current_room.get_long_description())
         print(self.current_room.get_inventory())  # optionnel : affiche les objets
         print(self.current_room.get_characters())  # affiche les personnages

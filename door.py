@@ -1,4 +1,6 @@
 # door.py
+DEBUG = True
+
 class Door:
     def __init__(self, destination, locked=False, key_name=None):
         self.destination = destination      

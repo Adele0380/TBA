@@ -16,6 +16,8 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
+DEBUG = True
+
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
@@ -208,6 +210,8 @@ class Actions:
         room = player.current_room
 
         if room.dark and "torche" not in player.inventory:
+            if DEBUG:
+                print("DEBUG: pièce sombre sans torche")
             print("\nIl fait trop sombre pour voir quoi que ce soit...\n")
             return True
 
@@ -291,6 +295,9 @@ class Actions:
             if player.beamer_room is None:
                 print("\nLe beamer n'est pas chargé.\n")
                 return False
+            
+            if DEBUG:
+                print("DEBUG: utilisation du beamer")
 
             player.current_room = player.beamer_room
             print("\nTéléportation réussie !\n")
@@ -338,7 +345,12 @@ class Actions:
 
         if needed not in player.inventory:
             print(f"\nIl vous faut '{needed}' pour ouvrir cette porte.\n")
+            if DEBUG:
+                print("DEBUG: clé manquante")
             return False
+        
+        if DEBUG:
+            print(f"DEBUG: tentative de déverrouillage vers {direction}")
 
         door.locked = False
         print("\nVous déverrouillez la porte.\n")

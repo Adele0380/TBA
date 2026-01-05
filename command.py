@@ -1,5 +1,7 @@
 # This file contains the Command class.
 
+DEBUG = True
+
 class Command:
     """
     This class represents a command. A command is composed of a command word, a help string, an action and a number of parameters.

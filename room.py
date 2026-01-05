@@ -1,5 +1,7 @@
 # Define the Room class.
 
+DEBUG = True
+
 class Room:
 
     # Define the constructor. 
